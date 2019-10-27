@@ -1,8 +1,53 @@
 # systems-work
 
+## Thursday 10/24/19
+
+### Get 'Dem Bugs
+#### GDB - GNU DeBugger
+- to use gdb, you must compile using the -g flag with gcc
+- basic usage: 
+```console
+$ gdb program
+```
+- this starts a gdb shell from which you can run your program
+- commands from in the gdb shell:
+	- `run`: runs the program until it ends/crashes/gets a signal
+	- `list`: show the lines of code run around a crash
+	- `print var`: print the value of `var`
+	- `backtrace`: show the current stack
+	- `break line number`: creates breakpoint at a line
+- running a program in pieces
+	- `run`: restarts the program
+	- `continue`: run the program until the next breakpoint/crash/end
+	- `next`: run the next line of the program only
+	- `step`: run the next lne of the program, if that is a funcxtion call, run only the next line of that function
+#### Valgrind
+- tool for debugging memory issues in C programs
+- you must compile with -g in order to use valgrind (and similar tools)
+- usage:
+```console
+$ valgrind --leak-check=yes ./program
+```
+
 ## Wednesday 10/23/19
 
-
+### Dynamic Memory Allocation continued
+#### calloc
+```c
+calloc(site_t n, size_t x)
+```
+- allocates n * x bytes of memory, ensuring every bit is 0
+#### realloc
+```c
+realloc(void *p, size_t x)
+```
+- changes the amount of memory allocated for a block to `x` bytes
+- `p` must point to the beginning of a block
+- returns a pointer to the beginning of the block (this is not always the same as `p`)
+- if `x` is smaller than the original size of the allocation, the extra bytes will be released
+- if `x` is larger than the original size then either:
+	1. if there is enough space at the end of the original allocation, the original allocation will be updated
+	2. if there is not enough space, a new allocation will be created, containing all the original values; the original allocation will be freed
 
 ## Tuesday 10/22/19
 
